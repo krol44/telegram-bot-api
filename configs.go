@@ -420,7 +420,7 @@ func (config PhotoConfig) params() (Params, error) {
 
 	params.AddNonEmpty("caption", config.Caption)
 	params.AddNonEmpty("parse_mode", config.ParseMode)
-	params.AddNonEmpty("has_spoiler", config.HasSpoiler)
+	params.AddBool("has_spoiler", config.HasSpoiler)
 	err = params.AddInterface("caption_entities", config.CaptionEntities)
 
 	return params, err
@@ -627,7 +627,7 @@ func (config AnimationConfig) params() (Params, error) {
 	params.AddNonEmpty("caption", config.Caption)
 	params.AddNonEmpty("parse_mode", config.ParseMode)
 	params.AddNonEmpty("parse_mode", config.ParseMode)
-	params.AddNonEmpty("has_spoiler", config.HasSpoiler)
+	params.AddBool("has_spoiler", config.HasSpoiler)
 	err = params.AddInterface("caption_entities", config.CaptionEntities)
 
 	return params, err
