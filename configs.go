@@ -409,6 +409,7 @@ type PhotoConfig struct {
 	Caption         string
 	ParseMode       string
 	CaptionEntities []MessageEntity
+	HasSpoiler		bool
 }
 
 func (config PhotoConfig) params() (Params, error) {
@@ -562,7 +563,8 @@ type VideoConfig struct {
 	ParseMode         string
 	CaptionEntities   []MessageEntity
 	SupportsStreaming bool
-	Width		  int
+	HasSpoiler		  bool
+	Width		  	  int
 	Height            int
 }
 
@@ -612,6 +614,7 @@ type AnimationConfig struct {
 	Caption         string
 	ParseMode       string
 	CaptionEntities []MessageEntity
+	HasSpoiler		bool
 }
 
 func (config AnimationConfig) params() (Params, error) {
