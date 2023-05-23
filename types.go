@@ -1891,6 +1891,8 @@ type BaseInputMedia struct {
 	//
 	// optional
 	CaptionEntities []MessageEntity `json:"caption_entities,omitempty"`
+	// optional
+	HasSpoiler bool `json:"has_spoiler,omitempty"`
 }
 
 // InputMediaPhoto is a photo to send as part of a media group.
@@ -1922,6 +1924,8 @@ type InputMediaVideo struct {
 	//
 	// optional
 	SupportsStreaming bool `json:"supports_streaming,omitempty"`
+	// optional
+	HasSpoiler bool `json:"has_spoiler,omitempty"`
 }
 
 // InputMediaAnimation is an animation to send as part of a media group.
@@ -1944,6 +1948,8 @@ type InputMediaAnimation struct {
 	//
 	// optional
 	Duration int `json:"duration,omitempty"`
+	// optional
+	HasSpoiler bool `json:"has_spoiler,omitempty"`
 }
 
 // InputMediaAudio is an audio to send as part of a media group.
