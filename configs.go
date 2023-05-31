@@ -2241,6 +2241,7 @@ type MediaGroupConfig struct {
 	Media               []interface{}
 	DisableNotification bool
 	ReplyToMessageID    int
+	ProtectContent 		bool
 }
 
 func (config MediaGroupConfig) method() string {
@@ -2253,6 +2254,7 @@ func (config MediaGroupConfig) params() (Params, error) {
 	params.AddFirstValid("chat_id", config.ChatID, config.ChannelUsername)
 	params.AddBool("disable_notification", config.DisableNotification)
 	params.AddNonZero("reply_to_message_id", config.ReplyToMessageID)
+	params.AddBool("protect_content", config.ProtectContent)
 
 	err := params.AddInterface("media", prepareInputMediaForParams(config.Media))
 
