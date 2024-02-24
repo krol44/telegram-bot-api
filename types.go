@@ -261,6 +261,10 @@ type Chat struct {
 	//
 	// optional
 	LastName string `json:"last_name,omitempty"`
+	// IsForum is true if the supergroup chat is a forum (has topics enabled)
+	//
+	// optional
+	IsForum bool `json:"is_forum,omitempty"`
 	// Photo is a chat photo
 	Photo *ChatPhoto `json:"photo"`
 	// Bio is the bio of the other party in a private chat. Returned only in
@@ -364,6 +368,10 @@ type Message struct {
 	// From is a sender, empty for messages sent to channels;
 	//
 	// optional
+	MessageThreadID int `json:"message_thread_id,omitempty"`
+	// From is a sender, empty for messages sent to channels;
+	//
+	// optional
 	From *User `json:"from,omitempty"`
 	// SenderChat is the sender of the message, sent on behalf of a chat. The
 	// channel itself for channel messages. The supergroup itself for messages
@@ -374,6 +382,10 @@ type Message struct {
 	SenderChat *Chat `json:"sender_chat,omitempty"`
 	// Date of the message was sent in Unix time
 	Date int `json:"date"`
+	// IsTopicMessage true if the message is sent to a forum topic
+	//
+	// optional
+	IsTopicMessage bool `json:"is_topic_message,omitempty"`
 	// Chat is the conversation the message belongs to
 	Chat *Chat `json:"chat"`
 	// ForwardFrom for forwarded messages, sender of the original message;
@@ -608,6 +620,30 @@ type Message struct {
 	//
 	// optional
 	ProximityAlertTriggered *ProximityAlertTriggered `json:"proximity_alert_triggered,omitempty"`
+	// ForumTopicCreated is a service message: forum topic created
+	//
+	// optional
+	ForumTopicCreated *ForumTopicCreated `json:"forum_topic_created,omitempty"`
+	// ForumTopicClosed is a service message: forum topic edited
+	//
+	// optional
+	ForumTopicEdited *ForumTopicEdited `json:"forum_topic_edited,omitempty"`
+	// ForumTopicClosed is a service message: forum topic closed
+	//
+	// optional
+	ForumTopicClosed *ForumTopicClosed `json:"forum_topic_closed,omitempty"`
+	// ForumTopicReopened is a service message: forum topic reopened
+	//
+	// optional
+	ForumTopicReopened *ForumTopicReopened `json:"forum_topic_reopened,omitempty"`
+	// GeneralForumTopicHidden is a service message: the 'General' forum topic hidden
+	//
+	// optional
+	GeneralForumTopicHidden *GeneralForumTopicHidden `json:"general_forum_topic_hidden,omitempty"`
+	// GeneralForumTopicUnhidden is a service message: the 'General' forum topic unhidden
+	//
+	// optional
+	GeneralForumTopicUnhidden *GeneralForumTopicUnhidden `json:"general_forum_topic_unhidden,omitempty"`
 	// VideoChatScheduled is a service message: video chat scheduled.
 	//
 	// optional
@@ -1181,6 +1217,54 @@ type MessageAutoDeleteTimerChanged struct {
 	MessageAutoDeleteTime int `json:"message_auto_delete_time"`
 }
 
+// ForumTopicCreated represents a service message about a new forum topic
+// created in the chat.
+type ForumTopicCreated struct {
+	// Name is the name of topic
+	Name string `json:"name"`
+	// IconColor is the color of the topic icon in RGB format
+	IconColor int `json:"icon_color"`
+	// IconCustomEmojiID is the unique identifier of the custom emoji
+	// shown as the topic icon
+	//
+	// optional
+	IconCustomEmojiID string `json:"icon_custom_emoji_id,omitempty"`
+}
+
+// ForumTopicClosed represents a service message about a forum topic
+// closed in the chat. Currently holds no information.
+type ForumTopicClosed struct {
+}
+
+// ForumTopicEdited object represents a service message about an edited forum topic.
+type ForumTopicEdited struct {
+	// Name is the new name of the topic, if it was edited
+	//
+	// optional
+	Name string `json:"name,omitempty"`
+	// IconCustomEmojiID is the new identifier of the custom emoji
+	// shown as the topic icon, if it was edited;
+	// an empty string if the icon was removed
+	//
+	// optional
+	IconCustomEmojiID *string `json:"icon_custom_emoji_id,omitempty"`
+}
+
+// ForumTopicReopened represents a service message about a forum topic
+// reopened in the chat. Currently holds no information.
+type ForumTopicReopened struct {
+}
+
+// GeneralForumTopicHidden represents a service message about General forum topic
+// hidden in the chat. Currently holds no information.
+type GeneralForumTopicHidden struct {
+}
+
+// GeneralForumTopicUnhidden represents a service message about General forum topic
+// unhidden in the chat. Currently holds no information.
+type GeneralForumTopicUnhidden struct {
+}
+
 // VideoChatScheduled represents a service message about a voice chat scheduled
 // in the chat.
 type VideoChatScheduled struct {
@@ -1591,6 +1675,7 @@ type ChatAdministratorRights struct {
 	CanPostMessages     bool `json:"can_post_messages"`
 	CanEditMessages     bool `json:"can_edit_messages"`
 	CanPinMessages      bool `json:"can_pin_messages"`
+	CanManageTopics     bool `json:"can_manage_topics"`
 }
 
 // ChatMember contains information about one member of a chat.
@@ -1680,6 +1765,9 @@ type ChatMember struct {
 	CanInviteUsers bool `json:"can_invite_users,omitempty"`
 	// CanPinMessages administrators and restricted only.
 	// True, if the user is allowed to pin messages; groups and supergroups only
+	//
+	// optional
+	CanManageTopics bool `json:"can_manage_topics,omitempty"`
 	//
 	// optional
 	CanPinMessages bool `json:"can_pin_messages,omitempty"`
@@ -1806,6 +1894,9 @@ type ChatPermissions struct {
 	//
 	// optional
 	CanPinMessages bool `json:"can_pin_messages,omitempty"`
+	//
+	// optional
+	CanManageTopics bool `json:"can_manage_topics,omitempty"`
 }
 
 // ChatLocation represents a location to which a chat is connected.
@@ -1816,6 +1907,21 @@ type ChatLocation struct {
 	// Address is the location address; 1-64 characters, as defined by the chat
 	// owner
 	Address string `json:"address"`
+}
+
+// ForumTopic represents a forum topic.
+type ForumTopic struct {
+	// MessageThreadID is the unique identifier of the forum topic
+	MessageThreadID int `json:"message_thread_id"`
+	// Name is the name of the topic
+	Name string `json:"name"`
+	// IconColor is the color of the topic icon in RGB format
+	IconColor int `json:"icon_color"`
+	// IconCustomEmojiID is the unique identifier of the custom emoji
+	// shown as the topic icon
+	//
+	// optional
+	IconCustomEmojiID string `json:"icon_custom_emoji_id,omitempty"`
 }
 
 // BotCommand represents a bot command.

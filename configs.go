@@ -409,7 +409,7 @@ type PhotoConfig struct {
 	Caption         string
 	ParseMode       string
 	CaptionEntities []MessageEntity
-	HasSpoiler		bool
+	HasSpoiler      bool
 }
 
 func (config PhotoConfig) params() (Params, error) {
@@ -431,16 +431,20 @@ func (config PhotoConfig) method() string {
 }
 
 func (config PhotoConfig) files() []RequestFile {
-	files := []RequestFile{{
-		Name: "photo",
-		Data: config.File,
-	}}
+	files := []RequestFile{
+		{
+			Name: "photo",
+			Data: config.File,
+		},
+	}
 
 	if config.Thumb != nil {
-		files = append(files, RequestFile{
-			Name: "thumb",
-			Data: config.Thumb,
-		})
+		files = append(
+			files, RequestFile{
+				Name: "thumb",
+				Data: config.Thumb,
+			},
+		)
 	}
 
 	return files
@@ -479,16 +483,20 @@ func (config AudioConfig) method() string {
 }
 
 func (config AudioConfig) files() []RequestFile {
-	files := []RequestFile{{
-		Name: "audio",
-		Data: config.File,
-	}}
+	files := []RequestFile{
+		{
+			Name: "audio",
+			Data: config.File,
+		},
+	}
 
 	if config.Thumb != nil {
-		files = append(files, RequestFile{
-			Name: "thumb",
-			Data: config.Thumb,
-		})
+		files = append(
+			files, RequestFile{
+				Name: "thumb",
+				Data: config.Thumb,
+			},
+		)
 	}
 
 	return files
@@ -519,16 +527,20 @@ func (config DocumentConfig) method() string {
 }
 
 func (config DocumentConfig) files() []RequestFile {
-	files := []RequestFile{{
-		Name: "document",
-		Data: config.File,
-	}}
+	files := []RequestFile{
+		{
+			Name: "document",
+			Data: config.File,
+		},
+	}
 
 	if config.Thumb != nil {
-		files = append(files, RequestFile{
-			Name: "thumb",
-			Data: config.Thumb,
-		})
+		files = append(
+			files, RequestFile{
+				Name: "thumb",
+				Data: config.Thumb,
+			},
+		)
 	}
 
 	return files
@@ -548,10 +560,12 @@ func (config StickerConfig) method() string {
 }
 
 func (config StickerConfig) files() []RequestFile {
-	return []RequestFile{{
-		Name: "sticker",
-		Data: config.File,
-	}}
+	return []RequestFile{
+		{
+			Name: "sticker",
+			Data: config.File,
+		},
+	}
 }
 
 // VideoConfig contains information about a SendVideo request.
@@ -563,8 +577,8 @@ type VideoConfig struct {
 	ParseMode         string
 	CaptionEntities   []MessageEntity
 	SupportsStreaming bool
-	HasSpoiler		  bool
-	Width		  	  int
+	HasSpoiler        bool
+	Width             int
 	Height            int
 }
 
@@ -591,16 +605,20 @@ func (config VideoConfig) method() string {
 }
 
 func (config VideoConfig) files() []RequestFile {
-	files := []RequestFile{{
-		Name: "video",
-		Data: config.File,
-	}}
+	files := []RequestFile{
+		{
+			Name: "video",
+			Data: config.File,
+		},
+	}
 
 	if config.Thumb != nil {
-		files = append(files, RequestFile{
-			Name: "thumb",
-			Data: config.Thumb,
-		})
+		files = append(
+			files, RequestFile{
+				Name: "thumb",
+				Data: config.Thumb,
+			},
+		)
 	}
 
 	return files
@@ -614,7 +632,7 @@ type AnimationConfig struct {
 	Caption         string
 	ParseMode       string
 	CaptionEntities []MessageEntity
-	HasSpoiler		bool
+	HasSpoiler      bool
 }
 
 func (config AnimationConfig) params() (Params, error) {
@@ -638,16 +656,20 @@ func (config AnimationConfig) method() string {
 }
 
 func (config AnimationConfig) files() []RequestFile {
-	files := []RequestFile{{
-		Name: "animation",
-		Data: config.File,
-	}}
+	files := []RequestFile{
+		{
+			Name: "animation",
+			Data: config.File,
+		},
+	}
 
 	if config.Thumb != nil {
-		files = append(files, RequestFile{
-			Name: "thumb",
-			Data: config.Thumb,
-		})
+		files = append(
+			files, RequestFile{
+				Name: "thumb",
+				Data: config.Thumb,
+			},
+		)
 	}
 
 	return files
@@ -675,16 +697,20 @@ func (config VideoNoteConfig) method() string {
 }
 
 func (config VideoNoteConfig) files() []RequestFile {
-	files := []RequestFile{{
-		Name: "video_note",
-		Data: config.File,
-	}}
+	files := []RequestFile{
+		{
+			Name: "video_note",
+			Data: config.File,
+		},
+	}
 
 	if config.Thumb != nil {
-		files = append(files, RequestFile{
-			Name: "thumb",
-			Data: config.Thumb,
-		})
+		files = append(
+			files, RequestFile{
+				Name: "thumb",
+				Data: config.Thumb,
+			},
+		)
 	}
 
 	return files
@@ -719,16 +745,20 @@ func (config VoiceConfig) method() string {
 }
 
 func (config VoiceConfig) files() []RequestFile {
-	files := []RequestFile{{
-		Name: "voice",
-		Data: config.File,
-	}}
+	files := []RequestFile{
+		{
+			Name: "voice",
+			Data: config.File,
+		},
+	}
 
 	if config.Thumb != nil {
-		files = append(files, RequestFile{
-			Name: "thumb",
-			Data: config.Thumb,
-		})
+		files = append(
+			files, RequestFile{
+				Name: "thumb",
+				Data: config.Thumb,
+			},
+		)
 	}
 
 	return files
@@ -1198,10 +1228,12 @@ func (config WebhookConfig) params() (Params, error) {
 
 func (config WebhookConfig) files() []RequestFile {
 	if config.Certificate != nil {
-		return []RequestFile{{
-			Name: "certificate",
-			Data: config.Certificate,
-		}}
+		return []RequestFile{
+			{
+				Name: "certificate",
+				Data: config.Certificate,
+			},
+		}
 	}
 
 	return nil
@@ -1394,6 +1426,7 @@ type PromoteChatMemberConfig struct {
 	CanRestrictMembers  bool
 	CanPinMessages      bool
 	CanPromoteMembers   bool
+	CanManageTopics     bool
 }
 
 func (config PromoteChatMemberConfig) method() string {
@@ -1417,6 +1450,7 @@ func (config PromoteChatMemberConfig) params() (Params, error) {
 	params.AddBool("can_restrict_members", config.CanRestrictMembers)
 	params.AddBool("can_pin_messages", config.CanPinMessages)
 	params.AddBool("can_promote_members", config.CanPromoteMembers)
+	params.AddBool("can_manage_topics", config.CanManageTopics)
 
 	return params, nil
 }
@@ -1932,10 +1966,12 @@ func (config SetChatPhotoConfig) method() string {
 }
 
 func (config SetChatPhotoConfig) files() []RequestFile {
-	return []RequestFile{{
-		Name: "photo",
-		Data: config.File,
-	}}
+	return []RequestFile{
+		{
+			Name: "photo",
+			Data: config.File,
+		},
+	}
 }
 
 // DeleteChatPhotoConfig allows you to delete a group, supergroup, or channel's photo.
@@ -2034,10 +2070,12 @@ func (config UploadStickerConfig) params() (Params, error) {
 }
 
 func (config UploadStickerConfig) files() []RequestFile {
-	return []RequestFile{{
-		Name: "png_sticker",
-		Data: config.PNGSticker,
-	}}
+	return []RequestFile{
+		{
+			Name: "png_sticker",
+			Data: config.PNGSticker,
+		},
+	}
 }
 
 // NewStickerSetConfig allows creating a new sticker set.
@@ -2076,16 +2114,20 @@ func (config NewStickerSetConfig) params() (Params, error) {
 
 func (config NewStickerSetConfig) files() []RequestFile {
 	if config.PNGSticker != nil {
-		return []RequestFile{{
-			Name: "png_sticker",
-			Data: config.PNGSticker,
-		}}
+		return []RequestFile{
+			{
+				Name: "png_sticker",
+				Data: config.PNGSticker,
+			},
+		}
 	}
 
-	return []RequestFile{{
-		Name: "tgs_sticker",
-		Data: config.TGSSticker,
-	}}
+	return []RequestFile{
+		{
+			Name: "tgs_sticker",
+			Data: config.TGSSticker,
+		},
+	}
 }
 
 // AddStickerConfig allows you to add a sticker to a set.
@@ -2116,16 +2158,20 @@ func (config AddStickerConfig) params() (Params, error) {
 
 func (config AddStickerConfig) files() []RequestFile {
 	if config.PNGSticker != nil {
-		return []RequestFile{{
-			Name: "png_sticker",
-			Data: config.PNGSticker,
-		}}
+		return []RequestFile{
+			{
+				Name: "png_sticker",
+				Data: config.PNGSticker,
+			},
+		}
 	}
 
-	return []RequestFile{{
-		Name: "tgs_sticker",
-		Data: config.TGSSticker,
-	}}
+	return []RequestFile{
+		{
+			Name: "tgs_sticker",
+			Data: config.TGSSticker,
+		},
+	}
 
 }
 
@@ -2186,10 +2232,12 @@ func (config SetStickerSetThumbConfig) params() (Params, error) {
 }
 
 func (config SetStickerSetThumbConfig) files() []RequestFile {
-	return []RequestFile{{
-		Name: "thumb",
-		Data: config.Thumb,
-	}}
+	return []RequestFile{
+		{
+			Name: "thumb",
+			Data: config.Thumb,
+		},
+	}
 }
 
 // SetChatStickerSetConfig allows you to set the sticker set for a supergroup.
@@ -2231,6 +2279,190 @@ func (config DeleteChatStickerSetConfig) params() (Params, error) {
 	return params, nil
 }
 
+// GetForumTopicIconStickersConfig allows you to get custom emoji stickers,
+// which can be used as a forum topic icon by any user.
+type GetForumTopicIconStickersConfig struct{}
+
+func (config GetForumTopicIconStickersConfig) method() string {
+	return "getForumTopicIconStickers"
+}
+
+func (config GetForumTopicIconStickersConfig) params() (Params, error) {
+	return nil, nil
+}
+
+// CreateForumTopicConfig allows you to create a topic
+// in a forum supergroup chat.
+type CreateForumTopicConfig struct {
+	ChatConfig
+	Name              string
+	IconColor         int
+	IconCustomEmojiID string
+}
+
+func (config CreateForumTopicConfig) method() string {
+	return "createForumTopic"
+}
+
+func (config CreateForumTopicConfig) params() (Params, error) {
+	params, err := config.ChatConfig.params()
+	if err != nil {
+		return params, err
+	}
+
+	params.AddNonEmpty("name", config.Name)
+	params.AddNonZero("icon_color", config.IconColor)
+	params.AddNonEmpty("icon_custom_emoji_id", config.IconCustomEmojiID)
+
+	return params, nil
+}
+
+type BaseForum struct {
+	ChatConfig
+	MessageThreadID int
+}
+
+func (base BaseForum) params() (Params, error) {
+	params, err := base.ChatConfig.params()
+	if err != nil {
+		return params, err
+	}
+	params.AddNonZero("message_thread_id", base.MessageThreadID)
+
+	return params, nil
+}
+
+// EditForumTopicConfig allows you to edit
+// name and icon of a topic in a forum supergroup chat.
+type EditForumTopicConfig struct {
+	BaseForum
+	Name              string
+	IconCustomEmojiID string
+}
+
+func (config EditForumTopicConfig) method() string {
+	return "editForumTopic"
+}
+
+func (config EditForumTopicConfig) params() (Params, error) {
+	params, err := config.BaseForum.params()
+	if err != nil {
+		return params, err
+	}
+	params.AddNonEmpty("name", config.Name)
+	params.AddNonEmpty("icon_custom_emoji_id", config.IconCustomEmojiID)
+
+	return params, nil
+}
+
+// CloseForumTopicConfig allows you to close
+// an open topic in a forum supergroup chat.
+type CloseForumTopicConfig struct{ BaseForum }
+
+func (config CloseForumTopicConfig) method() string {
+	return "closeForumTopic"
+}
+
+// ReopenForumTopicConfig allows you to reopen
+// an closed topic in a forum supergroup chat.
+type ReopenForumTopicConfig struct{ BaseForum }
+
+func (config ReopenForumTopicConfig) method() string {
+	return "reopenForumTopic"
+}
+
+// DeleteForumTopicConfig allows you to delete a forum topic
+// along with all its messages in a forum supergroup chat.
+type DeleteForumTopicConfig struct{ BaseForum }
+
+func (config DeleteForumTopicConfig) method() string {
+	return "deleteForumTopic"
+}
+
+// UnpinAllForumTopicMessagesConfig allows you to clear the list
+// of pinned messages in a forum topic.
+type UnpinAllForumTopicMessagesConfig struct{ BaseForum }
+
+func (config UnpinAllForumTopicMessagesConfig) method() string {
+	return "unpinAllForumTopicMessages"
+}
+
+// UnpinAllForumTopicMessagesConfig allows you to edit the name of
+// the 'General' topic in a forum supergroup chat.
+// The bot must be an administrator in the chat for this to work
+// and must have can_manage_topics administrator rights. Returns True on success.
+type EditGeneralForumTopicConfig struct {
+	BaseForum
+	Name string
+}
+
+func (config EditGeneralForumTopicConfig) method() string {
+	return "editGeneralForumTopic"
+}
+
+func (config EditGeneralForumTopicConfig) params() (Params, error) {
+	params, err := config.BaseForum.params()
+	if err != nil {
+		return params, err
+	}
+	params.AddNonEmpty("name", config.Name)
+
+	return params, nil
+}
+
+// CloseGeneralForumTopicConfig allows you to to close an open 'General' topic
+// in a forum supergroup chat. The bot must be an administrator in the chat
+// for this to work and must have the can_manage_topics administrator rights.
+// Returns True on success.
+type CloseGeneralForumTopicConfig struct{ BaseForum }
+
+func (config CloseGeneralForumTopicConfig) method() string {
+	return "closeGeneralForumTopic"
+}
+
+// CloseGeneralForumTopicConfig allows you to reopen a closed 'General' topic
+// in a forum supergroup chat. The bot must be an administrator in the chat
+// for this to work and must have the can_manage_topics administrator rights.
+// The topic will be automatically unhidden if it was hidden.
+// Returns True on success.
+type ReopenGeneralForumTopicConfig struct{ BaseForum }
+
+func (config ReopenGeneralForumTopicConfig) method() string {
+	return "reopenGeneralForumTopic"
+}
+
+// HideGeneralForumTopicConfig allows you to hide the 'General' topic
+// in a forum supergroup chat. The bot must be an administrator in the chat
+// for this to work and must have the can_manage_topics administrator rights.
+// The topic will be automatically closed if it was open.
+// Returns True on success.
+type HideGeneralForumTopicConfig struct{ BaseForum }
+
+func (config HideGeneralForumTopicConfig) method() string {
+	return "hideGeneralForumTopic"
+}
+
+// UnhideGeneralForumTopicConfig allows you to unhide the 'General' topic
+// in a forum supergroup chat. The bot must be an administrator in the chat
+// for this to work and must have the can_manage_topics administrator rights.
+// Returns True on success.
+type UnhideGeneralForumTopicConfig struct{ BaseForum }
+
+func (config UnhideGeneralForumTopicConfig) method() string {
+	return "unhideGeneralForumTopic"
+}
+
+// UnpinAllGeneralForumTopicMessagesConfig allows you to to clear
+// the list of pinned messages in a General forum topic.
+// The bot must be an administrator in the chat for this to work
+// and must have the can_pin_messages administrator right in the supergroup.
+// Returns True on success.
+type UnpinAllGeneralForumTopicMessagesConfig struct{ BaseForum }
+
+func (config UnpinAllGeneralForumTopicMessagesConfig) method() string {
+	return "unpinAllGeneralForumTopicMessages"
+}
+
 // MediaGroupConfig allows you to send a group of media.
 //
 // Media consist of InputMedia items (InputMediaPhoto, InputMediaVideo).
@@ -2241,7 +2473,7 @@ type MediaGroupConfig struct {
 	Media               []interface{}
 	DisableNotification bool
 	ReplyToMessageID    int
-	ProtectContent 		bool
+	ProtectContent      bool
 }
 
 func (config MediaGroupConfig) method() string {
@@ -2493,52 +2725,66 @@ func prepareInputMediaFile(inputMedia interface{}, idx int) []RequestFile {
 	switch m := inputMedia.(type) {
 	case InputMediaPhoto:
 		if m.Media.NeedsUpload() {
-			files = append(files, RequestFile{
-				Name: fmt.Sprintf("file-%d", idx),
-				Data: m.Media,
-			})
+			files = append(
+				files, RequestFile{
+					Name: fmt.Sprintf("file-%d", idx),
+					Data: m.Media,
+				},
+			)
 		}
 	case InputMediaVideo:
 		if m.Media.NeedsUpload() {
-			files = append(files, RequestFile{
-				Name: fmt.Sprintf("file-%d", idx),
-				Data: m.Media,
-			})
+			files = append(
+				files, RequestFile{
+					Name: fmt.Sprintf("file-%d", idx),
+					Data: m.Media,
+				},
+			)
 		}
 
 		if m.Thumb != nil && m.Thumb.NeedsUpload() {
-			files = append(files, RequestFile{
-				Name: fmt.Sprintf("file-%d", idx),
-				Data: m.Thumb,
-			})
+			files = append(
+				files, RequestFile{
+					Name: fmt.Sprintf("file-%d", idx),
+					Data: m.Thumb,
+				},
+			)
 		}
 	case InputMediaDocument:
 		if m.Media.NeedsUpload() {
-			files = append(files, RequestFile{
-				Name: fmt.Sprintf("file-%d", idx),
-				Data: m.Media,
-			})
+			files = append(
+				files, RequestFile{
+					Name: fmt.Sprintf("file-%d", idx),
+					Data: m.Media,
+				},
+			)
 		}
 
 		if m.Thumb != nil && m.Thumb.NeedsUpload() {
-			files = append(files, RequestFile{
-				Name: fmt.Sprintf("file-%d", idx),
-				Data: m.Thumb,
-			})
+			files = append(
+				files, RequestFile{
+					Name: fmt.Sprintf("file-%d", idx),
+					Data: m.Thumb,
+				},
+			)
 		}
 	case InputMediaAudio:
 		if m.Media.NeedsUpload() {
-			files = append(files, RequestFile{
-				Name: fmt.Sprintf("file-%d", idx),
-				Data: m.Media,
-			})
+			files = append(
+				files, RequestFile{
+					Name: fmt.Sprintf("file-%d", idx),
+					Data: m.Media,
+				},
+			)
 		}
 
 		if m.Thumb != nil && m.Thumb.NeedsUpload() {
-			files = append(files, RequestFile{
-				Name: fmt.Sprintf("file-%d", idx),
-				Data: m.Thumb,
-			})
+			files = append(
+				files, RequestFile{
+					Name: fmt.Sprintf("file-%d", idx),
+					Data: m.Thumb,
+				},
+			)
 		}
 	}
 
