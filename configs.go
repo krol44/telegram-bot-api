@@ -271,6 +271,7 @@ type BaseChat struct {
 	ReplyMarkup              interface{}
 	DisableNotification      bool
 	AllowSendingWithoutReply bool
+	MessageThreadID          int
 }
 
 func (chat *BaseChat) params() (Params, error) {
@@ -280,6 +281,7 @@ func (chat *BaseChat) params() (Params, error) {
 	params.AddNonZero("reply_to_message_id", chat.ReplyToMessageID)
 	params.AddBool("disable_notification", chat.DisableNotification)
 	params.AddBool("allow_sending_without_reply", chat.AllowSendingWithoutReply)
+	params.AddNonZero("message_thread_id", chat.MessageThreadID)
 	params.AddBool("protect_content", chat.ProtectContent)
 
 	err := params.AddInterface("reply_markup", chat.ReplyMarkup)
@@ -1015,13 +1017,15 @@ func (config GetGameHighScoresConfig) method() string {
 // ChatActionConfig contains information about a SendChatAction request.
 type ChatActionConfig struct {
 	BaseChat
-	Action string // required
+	MessageThreadID int
+	Action          string // required
 }
 
 func (config ChatActionConfig) params() (Params, error) {
 	params, err := config.BaseChat.params()
 
 	params["action"] = config.Action
+	params.AddNonZero("message_thread_id", config.MessageThreadID)
 
 	return params, err
 }
