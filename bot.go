@@ -46,6 +46,9 @@ func NewBotAPI(token string) (*BotAPI, error) {
 func NewBotAPIWithAPIEndpoint(token, apiEndpoint string) (*BotAPI, error) {
 	return NewBotAPIWithClient(token, apiEndpoint, &http.Client{})
 }
+func NewBotAPIWithAPIEndpointWithoutRequest(token, apiEndpoint string) (*BotAPI, error) {
+	return NewBotAPIWithClientWithoutRequest(token, apiEndpoint, &http.Client{})
+}
 
 // NewBotAPIWithClient creates a new BotAPI instance
 // and allows you to pass a http.Client.
@@ -67,6 +70,21 @@ func NewBotAPIWithClient(token, apiEndpoint string, client HTTPClient) (*BotAPI,
 	}
 
 	bot.Self = self
+
+	return bot, nil
+}
+
+func NewBotAPIWithClientWithoutRequest(token, apiEndpoint string, client HTTPClient) (*BotAPI, error) {
+	bot := &BotAPI{
+		Token:           token,
+		Client:          client,
+		Buffer:          100,
+		shutdownChannel: make(chan interface{}),
+
+		apiEndpoint: apiEndpoint,
+	}
+
+	bot.Self = User{}
 
 	return bot, nil
 }
@@ -472,18 +490,20 @@ func (bot *BotAPI) StopReceivingUpdates() {
 func (bot *BotAPI) ListenForWebhook(pattern string) UpdatesChannel {
 	ch := make(chan Update, bot.Buffer)
 
-	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
-		update, err := bot.HandleUpdate(r)
-		if err != nil {
-			errMsg, _ := json.Marshal(map[string]string{"error": err.Error()})
-			w.WriteHeader(http.StatusBadRequest)
-			w.Header().Set("Content-Type", "application/json")
-			_, _ = w.Write(errMsg)
-			return
-		}
+	http.HandleFunc(
+		pattern, func(w http.ResponseWriter, r *http.Request) {
+			update, err := bot.HandleUpdate(r)
+			if err != nil {
+				errMsg, _ := json.Marshal(map[string]string{"error": err.Error()})
+				w.WriteHeader(http.StatusBadRequest)
+				w.Header().Set("Content-Type", "application/json")
+				_, _ = w.Write(errMsg)
+				return
+			}
 
-		ch <- *update
-	})
+			ch <- *update
+		},
+	)
 
 	return ch
 }
@@ -707,7 +727,10 @@ func (bot *BotAPI) AnswerWebAppQuery(config AnswerWebAppQueryConfig) (SentWebApp
 }
 
 // GetMyDefaultAdministratorRights gets the current default administrator rights of the bot.
-func (bot *BotAPI) GetMyDefaultAdministratorRights(config GetMyDefaultAdministratorRightsConfig) (ChatAdministratorRights, error) {
+func (bot *BotAPI) GetMyDefaultAdministratorRights(config GetMyDefaultAdministratorRightsConfig) (
+	ChatAdministratorRights,
+	error,
+) {
 	var rights ChatAdministratorRights
 
 	resp, err := bot.Request(config)
